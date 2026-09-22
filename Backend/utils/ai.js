@@ -56,7 +56,7 @@ Respond to the user's latest message.
     const interaction =
         await ai.interactions.create({
             model:
-                "gemini-3.5-flash-lite",
+                "gemini-2.5-flash-lite",
 
             input: prompt,
         });
