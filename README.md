@@ -4,7 +4,7 @@
 
 A full-stack AI chat application built with **React, Node.js, Express, MongoDB, and Google Gemini**.
 
-🔗 **[Live Demo](https://devgpt-eu7l.onrender.com/login)**
+🔗 **[Live Demo](https://devgpt-eu7l.onrender.com/)**
 
 ---
 
