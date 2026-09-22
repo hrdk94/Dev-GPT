@@ -1,147 +1,344 @@
-# DevGPT — AI Developer Assistant
+DevGPT — AI Developer Assistant
 
-DevGPT is a full-stack AI developer assistant built with **React, Node.js, Express.js, MongoDB, and Google Gemini**.
+A full-stack AI developer assistant built with React, Node.js, Express.js, MongoDB, and Google Gemini.
 
-The application provides an authenticated ChatGPT-style experience with persistent conversations, Markdown and code rendering, conversation management, response regeneration, and a responsive interface.
+DevGPT provides a ChatGPT-style developer experience with authenticated users, persistent conversations, Markdown/code rendering, response regeneration, and conversation management.
 
----
+🚀 Live Demo
 
-## ✨ Features
+Open DevGPT
 
-- 🔐 JWT-based authentication
-- 👤 User registration and login
-- 🔒 Password hashing with bcrypt
-- 💬 Persistent AI conversations
-- 🗂️ Multiple conversations per user
-- 🕘 Conversation history
-- 🗑️ Delete conversations
-- 🔄 Regenerate AI responses
-- 📝 Markdown rendering
-- 💻 Syntax-friendly code blocks
-- 📋 Copy code functionality
-- ✍️ Auto-resizing chat input
-- 📱 Responsive chat interface
-- 🌙 Dark-themed UI
-- 🤖 Google Gemini AI integration
-- ⏱️ Automatic logout when JWT expires
+✨ Features
 
----
+JWT-based authentication
 
-## 🛠️ Tech Stack
+User registration and login
 
-### Frontend
+Password hashing with bcrypt
 
-- React
-- Vite
-- React Router
-- Axios
-- React Markdown
-- Remark GFM
-- Lucide React
+Persistent AI conversations
 
-### Backend
+Multiple conversations per user
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT
-- bcrypt
-- Google Gemini API
+Conversation history
 
----
+Delete conversations
 
-## 🏗️ Architecture
+Regenerate AI responses
 
-```text
-                    ┌─────────────────────┐
-                    │    React Frontend   │
-                    │       + Vite        │
-                    └──────────┬──────────┘
-                               │
-                         Axios / REST
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Express Backend   │
-                    │      Node.js        │
-                    └──────────┬──────────┘
-                               │
-              ┌────────────────┼────────────────┐
-              │                │                │
-              ▼                ▼                ▼
-       ┌────────────┐   ┌────────────┐   ┌────────────┐
-       │    JWT     │   │  MongoDB   │   │   Gemini   │
-       │    Auth    │   │  Database  │   │    API     │
-       └────────────┘   └────────────┘   └────────────┘
-🤖 AI Conversation Flow
-User
- │
- ▼
-Register / Login
- │
- ▼
-Express API
- │
- ├── bcrypt → Password verification
- │
- └── JWT → Authentication token
-              │
-              ▼
-        React stores token
-              │
-              ▼
-       Axios attaches token
-              │
-              ▼
-      Protected API routes
-              │
-              ▼
-       JWT middleware
-              │
-              ▼
-        Authenticated user
+Markdown rendering with GitHub-Flavored Markdown
 
+Code blocks with copy functionality
 
-🚀 Running Locally
-1. Clone the repository
-git clone https://github.com/hrdk94/Dev-GPT.git
-cd Dev-GPT
-2. Install backend dependencies
+Auto-resizing chat input
+
+Responsive dark UI
+
+Automatic logout when JWT expires
+
+Google Gemini AI integration
+
+🛠️ Tech Stack
+
+Frontend
+
+React
+
+Vite
+
+React Router
+
+Axios
+
+React Markdown
+
+Remark GFM
+
+Lucide React
+
+Backend
+
+Node.js
+
+Express.js
+
+MongoDB
+
+Mongoose
+
+JWT
+
+bcrypt
+
+Google Gemini API
+
+🏗️ Architecture
+
+React + Vite
+     │
+     │ Axios / REST API
+     ▼
+Node.js + Express
+     │
+     ├── JWT Authentication
+     │
+     ├── MongoDB + Mongoose
+     │
+     └── Google Gemini API
+
+🔐 Authentication Flow
+
+User registers or logs in.
+
+The backend validates the credentials.
+
+Passwords are hashed and verified using bcrypt.
+
+The backend generates a JWT.
+
+The frontend stores the token.
+
+Axios attaches the JWT to protected API requests.
+
+Express middleware verifies the token.
+
+The authenticated user's ID is used to access their conversations.
+
+🤖 AI Request Flow
+
+User Message
+     │
+     ▼
+React Frontend
+     │
+     ▼
+POST /api/chat
+     │
+     ▼
+JWT Middleware
+     │
+     ▼
+Conversation Lookup / Creation
+     │
+     ▼
+Conversation History
+     │
+     ▼
+Google Gemini
+     │
+     ▼
+AI Response
+     │
+     ├──────────► MongoDB
+     │
+     ▼
+Express Response
+     │
+     ▼
+React Markdown Renderer
+
+The application currently uses Gemini 3.1 Flash-Lite for AI responses.
+
+📡 API Endpoints
+
+Authentication
+
+Method
+
+Endpoint
+
+Description
+
+POST
+
+/api/auth/register
+
+Register a new user
+
+POST
+
+/api/auth/login
+
+Login and receive a JWT
+
+GET
+
+/api/auth/me
+
+Get the authenticated user
+
+Chat
+
+Method
+
+Endpoint
+
+Description
+
+POST
+
+/api/chat
+
+Send a message and generate an AI response
+
+GET
+
+/api/chat
+
+Get the user's conversations
+
+GET
+
+/api/chat/:id
+
+Get a specific conversation
+
+POST
+
+/api/chat/:id/regenerate
+
+Regenerate the latest AI response
+
+DELETE
+
+/api/chat/:id
+
+Delete a conversation
+
+📁 Project Structure
+
+Dev-GPT/
+│
+├── Backend/
+│   ├── middleware/
+│   │   └── auth.js
+│   ├── models/
+│   │   ├── User.js
+│   │   └── Conversation.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   └── chat.js
+│   ├── utils/
+│   │   └── ai.js
+│   ├── .env.example
+│   ├── package.json
+│   └── server.js
+│
+├── Frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── ChatWindow.jsx
+│   │   ├── pages/
+│   │   │   ├── Login.jsx
+│   │   │   └── Register.jsx
+│   │   ├── api.js
+│   │   ├── App.jsx
+│   │   └── index.css
+│   ├── .env.example
+│   ├── package.json
+│   └── index.html
+│
+├── .gitignore
+└── README.md
+
+⚙️ Environment Variables
+
+Backend
+
+Create Backend/.env:
+
+PORT=8080
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+GEMINI_API_KEY=your_gemini_api_key
+FRONTEND_URL=http://localhost:5173
+
+Frontend
+
+Create Frontend/.env:
+
+VITE_API_URL=http://localhost:8080/api
+
+Never commit .env files or API keys to the repository.
+
+🚀 Run Locally
+
+Backend
+
 cd Backend
 npm install
-3. Configure backend environment variables
-
-Create:
-
-Backend/.env
-
-and add the required MongoDB, JWT, and Gemini credentials.
-
-4. Start the backend
 npm run dev
 
-The backend will run on:
-
-http://localhost:8080
-5. Install frontend dependencies
+Frontend
 
 Open another terminal:
 
 cd Frontend
 npm install
-6. Configure frontend environment variables
-
-Create:
-
-Frontend/.env
-
-with:
-
-VITE_API_URL=http://localhost:8080/api
-7. Start the frontend
 npm run dev
 
-The frontend will be available at:
+The local application runs on:
 
-http://localhost:5173
+Frontend: http://localhost:5173
+Backend:  http://localhost:8080
+
+☁️ Deployment
+
+The application is deployed using Render.
+
+Frontend: Render Static Site
+
+Backend: Render Web Service
+
+Database: MongoDB Atlas
+
+AI: Google Gemini API
+
+Production URLs
+
+Frontend: https://devgpt-eu7l.onrender.com
+
+Backend: https://devgpt-backend-2m2q.onrender.com
+
+🔒 Security
+
+Passwords are hashed using bcrypt.
+
+JWT authentication protects private API routes.
+
+Users can only access their own conversations.
+
+Environment variables are excluded from Git.
+
+Expired JWTs automatically log users out.
+
+🔮 Future Improvements
+
+Streaming AI responses
+
+Conversation search
+
+Conversation renaming
+
+Message editing
+
+File upload and document analysis
+
+Multiple AI model support
+
+Code execution sandbox
+
+Voice input
+
+Rate limiting
+
+Production-grade CORS configuration
+
+👨‍💻 Author
+
+Hardik Goyal
+
+B.Tech Computer Science & Engineering
+DIT University
+
+Built as a full-stack project to explore authentication, REST APIs, database persistence, AI integration, and modern React development.
